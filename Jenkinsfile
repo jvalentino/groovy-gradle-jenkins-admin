@@ -8,7 +8,7 @@ pipeline {
           withCredentials([
               usernamePassword(credentialsId: 'jenkins', usernameVariable: 'JENKINS_USERNAME', passwordVariable: 'JENKINS_TOKEN'),
               usernamePassword(credentialsId: 'newrelic', usernameVariable: 'NEW_RELIC_ACCOUNT_ID', passwordVariable: 'NEW_RELIC_KEY')
-          ])
+          ]) {
             withGradle {
                sh '''
                 gradle \
