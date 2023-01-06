@@ -6,7 +6,6 @@ package com.github.jvalentino.jenkins
 import com.github.jvalentino.jenkins.service.JobListingService
 import groovy.transform.CompileDynamic
 import groovy.util.logging.Slf4j
-import com.github.jvalentino.jenkins.util.HttpUtil
 
 /**
  * The main application entry point
@@ -14,18 +13,18 @@ import com.github.jvalentino.jenkins.util.HttpUtil
  */
 @CompileDynamic
 @Slf4j
+@SuppressWarnings('JavaIoPackageAccess')
 class App {
 
-    String greeting = 'Hello World!'
-
-    protected JobListingService jobListingService = new JobListingService();
+    protected JobListingService jobListingService = new JobListingService()
+    protected App instance = this
 
     static void main(String[] args) {
         new App().execute()
     }
 
     void execute() {
-        AppSettings settings = this.loadAppSettings()
+        AppSettings settings = instance.loadAppSettings()
 
         List jobs = jobListingService.fetch(settings)
         log.info("${jobs.size()} jobs found")
@@ -42,6 +41,7 @@ class App {
             jenkinsUrl = properties.get('JENKINS_URL')
             newRelicAccountId = properties.get('NEW_RELIC_ACCOUNT_ID')
             newRelicKey = properties.get('NEW_RELIC_KEY')
+            path = new File('.').absolutePath
         }
         result
     }

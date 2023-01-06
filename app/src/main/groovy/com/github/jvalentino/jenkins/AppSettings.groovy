@@ -12,7 +12,7 @@ class AppSettings {
     String jenkinsUsername = null
     String jenkinsToken = null
     String jenkinsUrl = null
-    String path = new File(".").absolutePath
+    String path = null
     String newRelicAccountId = null
     String newRelicKey = null
 

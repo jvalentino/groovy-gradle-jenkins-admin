@@ -3,6 +3,14 @@ pipeline {
 
   stages {
 
+    stage('Check') {
+          steps {
+            withGradle {
+               sh 'gradle clean check -i --stacktrace'
+            }  // withGradle
+          } // steps
+        } // Check
+
     stage('Run') {
       steps {
           withCredentials([

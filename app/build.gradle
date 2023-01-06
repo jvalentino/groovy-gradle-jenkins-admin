@@ -31,6 +31,8 @@ dependencies {
     // Use the awesome Spock testing and specification framework even with Java
     testImplementation 'org.spockframework:spock-core:2.2-groovy-3.0'
     testImplementation 'junit:junit:4.13.2'
+    testImplementation 'cglib:cglib-nodep:3.3.0'
+    testImplementation 'org.objenesis:objenesis:3.3'
 }
 
 application {
@@ -56,7 +58,8 @@ jacocoTestCoverageVerification {
     violationRules {
         rule {
             limit {
-                //minimum = 0.5
+                counter = 'LINE'
+                minimum = 0.85
             }
         }
     }

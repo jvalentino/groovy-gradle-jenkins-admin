@@ -16,6 +16,7 @@ import okhttp3.Response
  */
 @CompileDynamic
 @Slf4j
+@SuppressWarnings(['DuplicateStringLiteral', 'UnnecessaryGString'])
 class HttpUtil {
 
     static Response postMedia(String url, String username, String password, String content) {
@@ -49,7 +50,7 @@ class HttpUtil {
     static Response post(String url, String key, String json) {
         OkHttpClient client = new OkHttpClient().newBuilder().build()
         MediaType mediaType = MediaType.parse("application/json")
-        RequestBody body = RequestBody.create(mediaType, json);
+        RequestBody body = RequestBody.create(mediaType, json)
         Request request = new Request.Builder()
                 .url(url)
                 .method("POST", body)

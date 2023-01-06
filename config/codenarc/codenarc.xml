@@ -108,7 +108,6 @@
     <rule class='org.codenarc.rule.convention.FieldTypeRequiredRule'/>
     <rule class='org.codenarc.rule.convention.IfStatementCouldBeTernaryRule'/>
     <rule class='org.codenarc.rule.convention.ImplicitClosureParameterRule'/>
-    <rule class='org.codenarc.rule.convention.ImplicitReturnStatementRule'/>
     <rule class='org.codenarc.rule.convention.InvertedIfElseRule'/>
     <rule class='org.codenarc.rule.convention.InvertedConditionRule'/>
     <rule class='org.codenarc.rule.convention.LongLiteralWithLowerCaseLRule'/>

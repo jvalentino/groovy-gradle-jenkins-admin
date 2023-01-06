@@ -59,6 +59,24 @@ SELECT latest(lastBuildDurationInMillis) / 1000 / 60 from JenkinsJob facet fullN
 
 ![01](wiki/06.png)
 
+# Running it on Jenkins
+
+If you are running via https://github.com/jvalentino/example-jenkins-docker-jcasc-2 locally, you will need to use your local IP address instead of localhost. This is because localhost in the context of the container agent is that agent, and not the Jenkins host.
+
+```bash
+gradle \
+  -DJENKINS_USERNAME="admin" \
+  -DJENKINS_TOKEN="***" \
+  -DJENKINS_URL="http://192.168.1.43:8080" \
+  -DNEW_RELIC_ACCOUNT_ID="***" \
+  -DNEW_RELIC_KEY="***" \
+  run --stacktrace
+```
+
+Otherwise this is just executed on the Gradle Agent (https://github.com/jvalentino/jenkins-agent-gradle):
+
+
+
 # How does this work?
 
 ## Remote Script Execution

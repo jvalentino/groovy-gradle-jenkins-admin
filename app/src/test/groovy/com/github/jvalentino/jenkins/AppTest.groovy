@@ -3,17 +3,57 @@
  */
 package com.github.jvalentino.jenkins
 
+import com.github.jvalentino.jenkins.service.JobListingService
 import spock.lang.Specification
 
 class AppTest extends Specification {
-    def "application has a greeting"() {
-        setup:
-        def app = new App()
+
+    App subject = null
+
+    def setup() {
+        subject = new App()
+        subject.instance = Mock(App)
+        subject.jobListingService = Mock(JobListingService)
+    }
+
+    def "test execute"() {
+        given:
+        AppSettings settings = new AppSettings()
+        List jobs = [[:]]
 
         when:
-        def result = app.greeting
+        subject.execute()
 
         then:
-        result != null
+        1 * subject.instance.loadAppSettings() >> settings
+        1 * subject.jobListingService.fetch(settings) >> jobs
+        1 * subject.jobListingService.submitToNewRelic(settings, jobs)
     }
+
+    def "test loadAppSettings"() {
+        given:
+        GroovyMock(System, global:true)
+
+        and:
+        Properties properties = new Properties()
+        properties.setProperty('JENKINS_USERNAME',  'alpha')
+        properties.setProperty('JENKINS_TOKEN',  'bravo')
+        properties.setProperty('JENKINS_URL',  'charlie')
+        properties.setProperty('NEW_RELIC_ACCOUNT_ID',  'delta')
+        properties.setProperty('NEW_RELIC_KEY',  'echo')
+
+        when:
+        AppSettings result = subject.loadAppSettings()
+
+        then:
+        1 * System.properties >> properties
+
+        and:
+        result.jenkinsUsername == 'alpha'
+        result.jenkinsToken == 'bravo'
+        result.jenkinsUrl == 'charlie'
+        result.newRelicAccountId == 'delta'
+        result.newRelicKey == 'echo'
+    }
+
 }
